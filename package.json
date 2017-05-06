@@ -1,0 +1,26 @@
+{
+  "name": "alexsb-bot",
+  "version": "1.0.0",
+  "description": "alexsb main page chatbot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexsb-software/IEEE-AlexSB-Bot.git"
+  },
+  "author": "alexsb-software",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexsb-software/IEEE-AlexSB-Bot/issues"
+  },
+  "homepage": "https://github.com/alexsb-software/IEEE-AlexSB-Bot#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "http": "0.0.0",
+    "wit-messenger-bot": "^1.0.1"
+  }
+}
