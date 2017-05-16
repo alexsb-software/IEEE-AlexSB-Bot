@@ -21,6 +21,6 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "http": "0.0.0",
-    "wit-messenger-bot": "^1.0.1"
+    "wit-messenger-bot": "^1.0.2"
   }
 }

@@ -7,16 +7,28 @@ const http = require('http')
 const express = require('express')
 const bodyParser = require('body-parser')
 const {WitMessengerBot, BotSessionsDelegate} = require('wit-messenger-bot')
+const {EntitiesError} = require('./EntitiesError');
 
-
-const actions = {
-  //wit.ai defined actions go here
-  //TODO: populate this as we build stories
+//TODO:move this somewhere else
+class ThisBot extends WitMessengerBot {
+  send(request, response){
+    const{sessionId,context,entities} = request
+    //TODO: more error checking
+    if(Object.keys(entities).length === 0 && entities.constructor === Object){
+      return new Promise(function(resolve, reject){
+        return reject(new EntitiesError(0, "No entities detected, What the hell is this guy saying?"))
+      })
+    }
+    super.send(request, response)
+  }
 }
 
 
+const actions = {}
+
+
 //WitMessengerBot instance
-let bot = new WitMessengerBot({
+let bot = new ThisBot({
   token: process.env.PAGE_ACCESS_TOKEN,
   verify: process.env.VERIFY_TOKEN
 },{
@@ -60,7 +72,9 @@ bot.on('message', (payload, reply) => {
       else bot.writeSession(sessionId, JSON.stringify(context))
 
     }).catch(function(error){
-			console.log(error)
+			if(error instanceof EntitiesError){
+        bot.sendMessage(senderId, {text: "Sorry, I didn't understand that."})
+      }
 		})
 })
 
