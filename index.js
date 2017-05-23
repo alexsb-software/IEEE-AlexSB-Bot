@@ -68,6 +68,23 @@ bot.on('message', (payload, reply) => {
 		})
 })
 
+bot.on('postback', function(payload, reply, actions){
+  var payload = payload['postback']['payload']
+  if(payload == "GET_STARTED_PAYLOAD"){
+    reply({"text": "Hello from the IEEE Alex Student Branch :). Please speak in English for the best experience."})
+    reply({
+      "text": "How may we help you today?\nChoose from these options or simply text us anything",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"choice",
+          "payload":"choice_payload"
+        }
+      ]
+    })
+  }
+})
+
 
 //initing express app
 let app = express()
