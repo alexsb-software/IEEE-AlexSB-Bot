@@ -6,24 +6,14 @@ dotenv.load();
 const http = require('http')
 const express = require('express')
 const bodyParser = require('body-parser')
-const {WitMessengerBot, BotSessionsDelegate} = require('wit-messenger-bot')
+const {BotSessionsDelegate} = require('wit-messenger-bot')
+const ThisBot = require('./ThisBot');
 const {EntitiesError} = require('./EntitiesError');
-
-//TODO:move this somewhere else
-class ThisBot extends WitMessengerBot {
-  send(request, response){
-    const{sessionId,context,entities} = request
-    //TODO: more error checking
-    if(Object.keys(entities).length === 0 && entities.constructor === Object){
-      return new Promise(function(resolve, reject){
-        return reject(new EntitiesError(0, "No entities detected, What the hell is this guy saying?"))
-      })
-    }
-    super.send(request, response)
-  }
-}
+const CONF_THRESHOLD = 0.5
 
 
+
+//bot actions
 const actions = {}
 
 
