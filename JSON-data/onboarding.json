@@ -1,0 +1,31 @@
+{
+  "msg1": {
+    "text": "Hello from the IEEE Alex Student Branch :). Please speak in English for the best experience."
+  },
+
+  "msg2": {
+    "text": "How may we help you today?\nChoose from these options or simply text us anything",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Upcoming events",
+        "payload":"upcoming_events_payload"
+      },
+      {
+        "content_type":"text",
+        "title":"Who are we?",
+        "payload":"who_are_we_payload"
+      },
+      {
+        "content_type":"text",
+        "title":"Join us!",
+        "payload":"join_us_payload"
+      },
+      {
+        "content_type":"text",
+        "title":"Give us feedback",
+        "payload": "give_us_feedback_payload"
+      }
+    ]
+  }
+}

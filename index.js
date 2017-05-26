@@ -41,16 +41,9 @@ bot.on('message', (payload, reply) => {
 
 
     //some interaction..
-    //let user know the bot has seen the message
-    bot.sendSenderAction(senderId, 'mark_seen', function(err, reply) {
-        if (err) throw err
-    })
+    bot.actHuman(senderId)
 
-    //let user know the bot is typing..
-    bot.sendSenderAction(senderId, 'typing_on', function(err, reply) {
-        if (err) throw err
-    })
-
+    //run NLP
     bot.runActions(sessionId, text, context, (context) => {
       //conversation context logic
       context = {}
@@ -64,24 +57,20 @@ bot.on('message', (payload, reply) => {
     }).catch(function(error){
 			if(error instanceof EntitiesError){
         bot.sendMessage(senderId, {text: "Sorry, I didn't understand that."})
+        bot.deleteSession(sessionId)
       }
 		})
 })
 
 bot.on('postback', function(payload, reply, actions){
+  let senderId = payload.sender.id
+  bot.actHuman(senderId)
   var payload = payload['postback']['payload']
   if(payload == "GET_STARTED_PAYLOAD"){
-    reply({"text": "Hello from the IEEE Alex Student Branch :). Please speak in English for the best experience."})
-    reply({
-      "text": "How may we help you today?\nChoose from these options or simply text us anything",
-      "quick_replies":[
-        {
-          "content_type":"text",
-          "title":"choice",
-          "payload":"choice_payload"
-        }
-      ]
-    })
+    var onboardingMsgs = require('./JSON-data/onboarding.json')
+    reply(onboardingMsgs['msg1'])
+    bot.actHuman(senderId)
+    reply(onboardingMsgs['msg2'])
   }
 })
 

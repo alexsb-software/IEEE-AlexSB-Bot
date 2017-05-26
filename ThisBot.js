@@ -30,6 +30,19 @@ class ThisBot extends WitMessengerBot {
     }
     super.send(request, response)
   }
+
+
+  actHuman(senderId){
+      //let user know the bot has seen the message
+      this.sendSenderAction(senderId, 'mark_seen', function(err, reply) {
+          if (err) throw err
+      })
+
+      //let user know the bot is typing..
+      this.sendSenderAction(senderId, 'typing_on', function(err, reply) {
+          if (err) throw err
+      })
+  }
 }
 
 module.exports = ThisBot
